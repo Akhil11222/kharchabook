@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Check } from 'lucide-react'
+import { ArrowLeft, Check, IndianRupee } from 'lucide-react'
 import { setSalary } from '@/lib/storage'
 import { KharchaBookData } from '@/lib/types'
 
@@ -20,11 +20,11 @@ export default function SalarySetup({ existingSalary, onSalarySet, onBack }: Sal
   const handleSubmit = () => {
     const val = parseFloat(amount)
     if (!amount || isNaN(val) || val <= 0) {
-      setError('Yaar, valid amount toh daal! 😅')
+      setError('Valid amount daaliye!')
       return
     }
     if (val > 10000000) {
-      setError('Itna kama raha hai?! 🤑 Valid amount daal bhai')
+      setError('Itna zyada? Valid amount daaliye.')
       return
     }
     setError('')
@@ -47,7 +47,7 @@ export default function SalarySetup({ existingSalary, onSalarySet, onBack }: Sal
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -30 }}
       transition={{ duration: 0.4 }}
-      className="min-h-screen bg-gradient-to-b from-butter to-amber-50 flex flex-col max-w-[480px] mx-auto px-6 py-10"
+      className="min-h-screen bg-gradient-to-b from-[#2C2010] via-[#3D2E14] to-[#2C2010] flex flex-col max-w-[480px] mx-auto px-6 py-10"
     >
       {/* Back button */}
       {onBack && (
@@ -70,16 +70,18 @@ export default function SalarySetup({ existingSalary, onSalarySet, onBack }: Sal
         transition={{ delay: 0.1 }}
         className="text-center mb-12 flex-shrink-0"
       >
-        <div className="text-6xl mb-4">💸</div>
-        <h1 className="text-2xl font-black text-gray-800 leading-tight">
+        <div className="w-16 h-16 bg-bistre-gold/15 border border-bistre-gold/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <IndianRupee size={32} className="text-butter" strokeWidth={1.5} />
+        </div>
+        <h1 className="text-2xl font-black text-butter leading-tight">
           {existingSalary > 0
             ? 'Salary update karte hain!'
             : 'Pehle bata, mahine mein aata kitna hai?'}
         </h1>
-        <p className="text-gray-500 font-semibold mt-2 text-sm">
+        <p className="text-butter/50 font-semibold mt-2 text-sm">
           {existingSalary > 0
             ? `Abhi set hai: ₹${existingSalary.toLocaleString('en-IN')}`
-            : 'Tension mat le, sirf tere phone pe store hoga 🔒'}
+            : 'Tension nahi, sirf aapke phone pe store hoga'}
         </p>
       </motion.div>
 
@@ -105,8 +107,8 @@ export default function SalarySetup({ existingSalary, onSalarySet, onBack }: Sal
             }}
             onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
             placeholder="25000"
-            className="w-full bg-white border-2 border-bistre-gold/30 rounded-3xl pl-12 pr-6 py-5
-                       text-3xl font-black text-gray-800 placeholder-gray-300
+            className="w-full bg-[#3D2E14] border-2 border-bistre-gold/30 rounded-3xl pl-12 pr-6 py-5
+                       text-3xl font-black text-butter placeholder-butter/30
                        focus:outline-none focus:border-bistre-gold transition-colors duration-150
                        shadow-card"
             autoFocus

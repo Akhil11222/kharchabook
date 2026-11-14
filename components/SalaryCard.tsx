@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Pencil, Share2 } from 'lucide-react'
+import { Pencil, Share2, Flame, AlertTriangle } from 'lucide-react'
 import { SpendingZone } from '@/lib/types'
 import { formatCurrency, getZoneConfig } from '@/lib/calculations'
 
@@ -45,7 +45,7 @@ export default function SalaryCard({
       {/* Top Row */}
       <div className="flex items-start justify-between relative z-10 mb-4">
         <div>
-          <p className="text-white/70 text-xs font-bold uppercase tracking-widest">Baaki Hai</p>
+          <p className="text-white/60 text-xs font-bold uppercase tracking-widest">Baaki Hai</p>
           <motion.div
             ref={balanceRef}
             key={balance}
@@ -56,8 +56,9 @@ export default function SalaryCard({
             {formatCurrency(balance < 0 ? 0 : balance)}
           </motion.div>
           {balance < 0 && (
-            <p className="text-indian-red/90 text-xs font-bold mt-1 bg-white/10 rounded-full px-2 py-0.5 inline-block">
-              ⚠️ Overspent by {formatCurrency(Math.abs(balance))}
+            <p className="text-red-200 text-xs font-bold mt-1 bg-white/10 rounded-full px-2 py-0.5 inline-flex items-center gap-1">
+              <AlertTriangle size={10} />
+              Overspent by {formatCurrency(Math.abs(balance))}
             </p>
           )}
         </div>
@@ -83,13 +84,13 @@ export default function SalaryCard({
       <div className="flex items-center gap-4 relative z-10 mb-4">
         <div className="flex items-center gap-1.5">
           <div className="w-2 h-2 rounded-full bg-white/60" />
-          <span className="text-white/80 text-sm font-semibold">
+          <span className="text-white/75 text-sm font-semibold">
             Salary: {formatCurrency(salary)}
           </span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-2 h-2 rounded-full bg-white/40" />
-          <span className="text-white/80 text-sm font-semibold">
+          <span className="text-white/75 text-sm font-semibold">
             Spent: {formatCurrency(totalSpent)}
           </span>
         </div>
@@ -104,7 +105,7 @@ export default function SalaryCard({
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className={`h-full rounded-full ${
               zone === 'green' ? 'bg-finch' :
-              zone === 'orange' ? 'bg-yellow-300' :
+              zone === 'orange' ? 'bg-yellow-400' :
               'bg-indian-red'
             }`}
           />
@@ -117,7 +118,7 @@ export default function SalaryCard({
           }`}>
             {zoneConfig.message}
           </span>
-          <span className="text-white/60 text-xs font-semibold">
+          <span className="text-white/55 text-xs font-semibold">
             {Math.round(zonePercent)}% left
           </span>
         </div>
@@ -131,9 +132,9 @@ export default function SalaryCard({
           transition={{ delay: 0.5 }}
           className="relative z-10 mt-3 inline-flex items-center gap-1.5 bg-white/15 rounded-full px-3 py-1"
         >
-          <span className="text-sm">🔥</span>
+          <Flame size={14} className="text-orange-300" />
           <span className="text-white text-xs font-bold">
-            {streak} din se log kar raha hai!
+            {streak} din se log kar rahe ho!
           </span>
         </motion.div>
       )}

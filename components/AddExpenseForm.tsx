@@ -61,10 +61,10 @@ export default function AddExpenseForm({ onAdd }: AddExpenseFormProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="bg-white rounded-3xl shadow-card p-5 mb-4"
+      className="bg-card-surface rounded-3xl shadow-card p-5 mb-4"
     >
-      <h3 className="text-base font-black text-gray-800 mb-4 flex items-center gap-2">
-        <span className="text-xl">➕</span>
+      <h3 className="text-base font-black text-stone-800 mb-4 flex items-center gap-2">
+        <Plus size={18} className="text-bistre-gold" />
         Naya Kharcha
       </h3>
 
@@ -78,8 +78,8 @@ export default function AddExpenseForm({ onAdd }: AddExpenseFormProps) {
             onChange={(e) => { setTitle(e.target.value); setErrors((p) => ({ ...p, title: undefined })) }}
             onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
             placeholder="Kya kharcha? (Rent, chai, kuch bhi...)"
-            className={`w-full bg-butter rounded-2xl px-4 py-3.5 text-gray-800 font-semibold
-                        placeholder-gray-400 text-sm
+            className={`w-full bg-butter-light rounded-2xl px-4 py-3.5 text-stone-800 font-semibold
+                        placeholder-stone-400 text-sm
                         focus:outline-none transition-colors duration-150
                         border-2 ${errors.title ? 'border-indian-red' : 'border-bistre-gold/30 focus:border-bistre-gold'}`}
             maxLength={80}
@@ -107,8 +107,8 @@ export default function AddExpenseForm({ onAdd }: AddExpenseFormProps) {
                 onChange={(e) => { setAmount(e.target.value); setErrors((p) => ({ ...p, amount: undefined })) }}
                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                 placeholder="Kitna?"
-                className={`w-full bg-butter rounded-2xl pl-8 pr-4 py-3.5 text-gray-800 font-bold text-sm
-                            placeholder-gray-400
+                className={`w-full bg-butter-light rounded-2xl pl-8 pr-4 py-3.5 text-stone-800 font-bold text-sm
+                            placeholder-stone-400
                             focus:outline-none transition-colors duration-150
                             border-2 ${errors.amount ? 'border-indian-red' : 'border-bistre-gold/30 focus:border-bistre-gold'}`}
                 min="0"

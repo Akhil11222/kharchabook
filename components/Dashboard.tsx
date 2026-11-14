@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { BookOpen, CalendarDays, ClipboardCopy, Trophy } from 'lucide-react'
 import { KharchaBookData, Expense } from '@/lib/types'
 import { addExpense, deleteExpense, getCurrentSalary, getExpensesForMonth, getCurrentMonthKey, loadData } from '@/lib/storage'
 import { calculateSmartInsights, getMonthSummaries, generateShareText, getMonthLabel } from '@/lib/calculations'
@@ -66,7 +67,7 @@ export default function Dashboard({ data, onDataUpdate, onEditSalary }: Dashboar
   }, [onDataUpdate])
 
   return (
-    <div className="min-h-screen bg-butter">
+    <div className="min-h-screen bg-[#2C2010]">
       {/* Confetti */}
       {insights.showCelebration && <Confetti />}
 
@@ -77,9 +78,10 @@ export default function Dashboard({ data, onDataUpdate, onEditSalary }: Dashboar
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
-            className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-finch text-white font-bold text-sm py-3 px-6 rounded-full shadow-card-lg"
+            className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-finch text-white font-bold text-sm py-3 px-6 rounded-full shadow-card-lg flex items-center gap-2"
           >
-            📋 Summary copied! Share karo WhatsApp pe
+            <ClipboardCopy size={14} />
+            Summary copied! Share karo WhatsApp pe
           </motion.div>
         )}
       </AnimatePresence>
@@ -88,10 +90,10 @@ export default function Dashboard({ data, onDataUpdate, onEditSalary }: Dashboar
         {/* App Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">📒</span>
-            <span className="text-lg font-black text-bistre-gold">KharchaBook</span>
+            <BookOpen size={22} className="text-butter" />
+            <span className="text-lg font-black text-butter">KharchaBook</span>
           </div>
-          <div className="text-sm text-gray-500 font-semibold">{monthLabel}</div>
+          <div className="text-sm text-butter/50 font-semibold">{monthLabel}</div>
         </div>
 
         {/* Salary Card */}
@@ -120,11 +122,11 @@ export default function Dashboard({ data, onDataUpdate, onEditSalary }: Dashboar
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-finch/10 border-2 border-finch rounded-2xl p-4 text-center mb-4"
+              className="bg-finch/15 border-2 border-finch/40 rounded-2xl p-4 text-center mb-4 flex flex-col items-center gap-1"
             >
-              <div className="text-2xl mb-1">🎉</div>
-              <p className="font-black text-finch">Waah bhai! Paisa bachaya!</p>
-              <p className="text-sm text-finch/80 font-semibold">Month almost done aur balance abhi bhi strong hai!</p>
+              <Trophy size={22} className="text-finch" />
+              <p className="font-black text-finch">Waah! Paisa bachaya!</p>
+              <p className="text-sm text-finch/70 font-semibold">Month almost done aur balance abhi bhi strong hai!</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -132,10 +134,11 @@ export default function Dashboard({ data, onDataUpdate, onEditSalary }: Dashboar
         {/* This Month Expenses */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-black text-gray-800">
-              📅 Is Mahine Ka Hisaab
+            <h2 className="text-lg font-black text-butter flex items-center gap-2">
+              <CalendarDays size={18} className="text-butter-dark" />
+              Is Mahine Ka Hisaab
             </h2>
-            <span className="text-xs bg-bistre-gold/10 text-bistre-gold font-bold px-2.5 py-1 rounded-full">
+            <span className="text-xs bg-bistre-gold/20 text-butter font-bold px-2.5 py-1 rounded-full">
               {insights.totalEntries} kharche
             </span>
           </div>

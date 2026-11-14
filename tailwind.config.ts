@@ -9,11 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'bistre-gold': '#967117',
-        'finch': '#5C7A29',
-        'butter': '#FFF1A8',
-        'indian-red': '#CD5C5C',
-        'garnet': '#6E1C1C',
+        'bistre-gold': '#6B4F0E',
+        'finch': '#3A5A18',
+        'butter': '#E8C97A',
+        'butter-light': '#F5E4B0',
+        'butter-dark': '#C8A84B',
+        'indian-red': '#8B2E2E',
+        'garnet': '#4A0E0E',
+        'page-bg': '#2C2010',
+        'card-bg': '#3D2E14',
+        'card-surface': '#F7EDD8',
       },
       fontFamily: {
         nunito: ['var(--font-nunito)', 'sans-serif'],
