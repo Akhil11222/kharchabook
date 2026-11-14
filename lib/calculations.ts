@@ -32,7 +32,7 @@ export function getZoneConfig(zone: SpendingZone) {
         color: 'bg-finch',
         textColor: 'text-finch',
         borderColor: 'border-finch',
-        message: 'Mast chal raha hai! 🟢',
+        message: 'Looking good — stay on track!',
         bgLight: 'bg-finch/10',
       };
     case 'orange':
@@ -40,7 +40,7 @@ export function getZoneConfig(zone: SpendingZone) {
         color: 'bg-indian-red',
         textColor: 'text-indian-red',
         borderColor: 'border-indian-red',
-        message: 'Thoda sambhal yaar 🟡',
+        message: 'Spending up — slow down a bit.',
         bgLight: 'bg-indian-red/10',
       };
     case 'red':
@@ -48,7 +48,7 @@ export function getZoneConfig(zone: SpendingZone) {
         color: 'bg-garnet',
         textColor: 'text-garnet',
         borderColor: 'border-garnet',
-        message: 'Bhai ruk ja! 🔴 Kharcha zyada ho gaya',
+        message: 'Almost out — stop non-essentials.',
         bgLight: 'bg-garnet/10',
       };
   }
@@ -183,8 +183,10 @@ export function generateShareText(data: KharchaBookData): string {
   const saved = salary - totalSpent;
   const monthLabel = getMonthLabel(monthKey);
 
-  const savedText = saved >= 0 ? `Saved ₹${saved.toLocaleString('en-IN')} 💰` : `Overspent ₹${Math.abs(saved).toLocaleString('en-IN')} 😬`;
+  const savedText = saved >= 0
+    ? `Saved ₹${saved.toLocaleString('en-IN')}`
+    : `Overspent ₹${Math.abs(saved).toLocaleString('en-IN')}`;
 
-  return `${monthLabel} Summary:\nSalary ₹${salary.toLocaleString('en-IN')} | Spent ₹${totalSpent.toLocaleString('en-IN')} | ${savedText}\n(via KharchaBook)`;
+  return `${monthLabel} — KharchaBook Summary\nSalary: ₹${salary.toLocaleString('en-IN')} | Spent: ₹${totalSpent.toLocaleString('en-IN')} | ${savedText}\nTracked with KharchaBook`;
 }
 

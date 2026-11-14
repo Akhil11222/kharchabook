@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, CalendarDays, ClipboardCopy, Trophy } from 'lucide-react'
 import { KharchaBookData, Expense } from '@/lib/types'
@@ -21,16 +21,16 @@ interface DashboardProps {
 
 export default function Dashboard({ data, onDataUpdate, onEditSalary }: DashboardProps) {
   const [animateBalance, setAnimateBalance] = useState(false)
-  const [shareToast, setShareToast] = useState(false)
+  const [shareToast,     setShareToast]     = useState(false)
 
-  const monthKey = getCurrentMonthKey()
-  const salary = getCurrentSalary(data)
+  const monthKey        = getCurrentMonthKey()
+  const salary          = getCurrentSalary(data)
   const currentExpenses = getExpensesForMonth(data, monthKey)
-  const totalSpent = currentExpenses.reduce((sum, e) => sum + e.amount, 0)
-  const balance = salary - totalSpent
-  const insights = calculateSmartInsights(data)
-  const monthSummaries = getMonthSummaries(data)
-  const monthLabel = getMonthLabel(monthKey)
+  const totalSpent      = currentExpenses.reduce((sum, e) => sum + e.amount, 0)
+  const balance         = salary - totalSpent
+  const insights        = calculateSmartInsights(data)
+  const monthSummaries  = getMonthSummaries(data)
+  const monthLabel      = getMonthLabel(monthKey)
 
   const handleAddExpense = (expense: Expense) => {
     const newData = addExpense(expense)
@@ -56,104 +56,86 @@ export default function Dashboard({ data, onDataUpdate, onEditSalary }: Dashboar
     }
   }
 
-  // Reload data from localStorage on focus (in case of multiple tabs)
   useEffect(() => {
-    const handleFocus = () => {
-      const freshData = loadData()
-      onDataUpdate(freshData)
-    }
+    const handleFocus = () => onDataUpdate(loadData())
     window.addEventListener('focus', handleFocus)
     return () => window.removeEventListener('focus', handleFocus)
   }, [onDataUpdate])
 
   return (
-    <div className="min-h-screen bg-[#2C2010]">
-      {/* Confetti */}
+    /* Warm cream app background */
+    <div className="min-h-screen" style={{ background: '#F5EDD5' }}>
       {insights.showCelebration && <Confetti />}
 
-      {/* Share Toast */}
+      {/* Share toast */}
       <AnimatePresence>
         {shareToast && (
           <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -50 }}
             className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-finch text-white font-bold text-sm py-3 px-6 rounded-full shadow-card-lg flex items-center gap-2"
           >
             <ClipboardCopy size={14} />
-            Summary copied! Share karo WhatsApp pe
+            Summary copied!
           </motion.div>
         )}
       </AnimatePresence>
 
       <div className="max-w-[480px] mx-auto px-4 pb-16 pt-4">
-        {/* App Header */}
+        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <BookOpen size={22} className="text-butter" />
-            <span className="text-lg font-black text-butter">KharchaBook</span>
+            <BookOpen size={20} className="text-bistre-gold" />
+            <span className="text-lg font-black text-bistre-gold">KharchaBook</span>
           </div>
-          <div className="text-sm text-butter/50 font-semibold">{monthLabel}</div>
+          <div className="text-sm text-text-mid font-semibold">{monthLabel}</div>
         </div>
 
-        {/* Salary Card */}
+        {/* Salary card */}
         <SalaryCard
-          salary={salary}
-          totalSpent={totalSpent}
-          balance={balance}
-          zone={insights.zone}
-          zonePercent={insights.zonePercent}
+          salary={salary} totalSpent={totalSpent} balance={balance}
+          zone={insights.zone} zonePercent={insights.zonePercent}
           animateBalance={animateBalance}
-          onEditSalary={onEditSalary}
-          onShare={handleShare}
+          onEditSalary={onEditSalary} onShare={handleShare}
           streak={insights.spendingStreak}
         />
 
-        {/* Smart Insights */}
+        {/* Insights */}
         <SmartInsights insights={insights} currentExpenses={currentExpenses} />
 
-        {/* Add Expense Form */}
+        {/* Add expense */}
         <AddExpenseForm onAdd={handleAddExpense} />
 
-        {/* Celebration Banner */}
+        {/* Celebration */}
         <AnimatePresence>
           {insights.showCelebration && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-finch/15 border-2 border-finch/40 rounded-2xl p-4 text-center mb-4 flex flex-col items-center gap-1"
+              initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}
+              className="bg-finch-soft border-2 border-finch/30 rounded-2xl p-4 text-center mb-4 flex flex-col items-center gap-1"
             >
               <Trophy size={22} className="text-finch" />
-              <p className="font-black text-finch">Waah! Paisa bachaya!</p>
-              <p className="text-sm text-finch/70 font-semibold">Month almost done aur balance abhi bhi strong hai!</p>
+              <p className="font-black text-finch">Great job! Balance still strong.</p>
+              <p className="text-sm text-finch/70 font-semibold">Month almost over — well done!</p>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* This Month Expenses */}
+        {/* This month */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-black text-butter flex items-center gap-2">
-              <CalendarDays size={18} className="text-butter-dark" />
-              Is Mahine Ka Hisaab
+            <h2 className="text-base font-black text-text-dark flex items-center gap-2">
+              <CalendarDays size={16} className="text-bistre-gold" />
+              This Month
             </h2>
-            <span className="text-xs bg-bistre-gold/20 text-butter font-bold px-2.5 py-1 rounded-full">
-              {insights.totalEntries} kharche
+            <span className="text-xs bg-bistre-gold/10 text-bistre-gold font-bold px-2.5 py-1 rounded-full">
+              {insights.totalEntries} entries
             </span>
           </div>
-          <ExpenseList
-            expenses={currentExpenses}
-            onDelete={handleDeleteExpense}
-          />
+          <ExpenseList expenses={currentExpenses} onDelete={handleDeleteExpense} />
         </div>
 
-        {/* Month History */}
-        {monthSummaries.length > 0 && (
-          <MonthHistory summaries={monthSummaries} />
-        )}
+        {/* History */}
+        {monthSummaries.length > 0 && <MonthHistory summaries={monthSummaries} />}
       </div>
     </div>
   )
 }
-

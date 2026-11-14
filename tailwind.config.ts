@@ -9,16 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'bistre-gold': '#6B4F0E',
-        'finch': '#3A5A18',
-        'butter': '#E8C97A',
-        'butter-light': '#F5E4B0',
-        'butter-dark': '#C8A84B',
-        'indian-red': '#8B2E2E',
-        'garnet': '#4A0E0E',
-        'page-bg': '#2C2010',
-        'card-bg': '#3D2E14',
-        'card-surface': '#F7EDD8',
+        // Core palette — dark rich shades
+        'bistre-gold': '#7A5912',   // primary dark gold, text & accents
+        'bistre-mid':  '#A07820',   // slightly lighter gold
+        'finch':       '#3D6B1A',   // deep olive green — success
+        'finch-soft':  '#EAF2E0',   // very light green tint
+        'butter':      '#FBF3DC',   // pale warm cream — page bg & inputs
+        'butter-mid':  '#F0E0A0',   // slightly deeper butter
+        'indian-red':  '#963030',   // muted warm red — warning
+        'garnet':      '#5A1818',   // deep dark red — danger & salary card
+        // Surface & text
+        'surface':     '#FFFFFF',
+        'warm-bg':     '#F5EDD5',   // main app background
+        'text-dark':   '#1E140A',   // primary text on light bg
+        'text-mid':    '#6B5530',   // secondary text
       },
       fontFamily: {
         nunito: ['var(--font-nunito)', 'sans-serif'],
@@ -28,8 +32,8 @@ const config: Config = {
         '3xl': '24px',
       },
       boxShadow: {
-        'card': '0 4px 24px 0 rgba(150,113,23,0.10)',
-        'card-lg': '0 8px 32px 0 rgba(150,113,23,0.16)',
+        'card': '0 2px 16px 0 rgba(122,89,18,0.08)',
+        'card-lg': '0 6px 32px 0 rgba(122,89,18,0.14)',
       },
       animation: {
         'slide-in': 'slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
