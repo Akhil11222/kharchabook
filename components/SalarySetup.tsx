@@ -39,103 +39,123 @@ export default function SalarySetup({ existingSalary, onSalarySet, onBack }: Sal
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.4 }}
-      className="min-h-screen gradient-landing flex flex-col max-w-[480px] mx-auto px-6 py-10"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.35 }}
+      className="h-[100dvh] max-h-[100dvh] overflow-hidden gradient-landing flex flex-col justify-between px-5 py-4 sm:py-6 max-w-[440px] mx-auto select-none"
     >
-      {/* Back */}
-      {onBack && (
-        <motion.button onClick={onBack}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 text-butter/70 font-bold mb-8 w-fit">
-          <ArrowLeft size={20} />
-          <span>Back</span>
-        </motion.button>
-      )}
+      {/* Top Bar / Back */}
+      <div className="flex-shrink-0 min-h-[32px]">
+        {onBack ? (
+          <motion.button
+            onClick={onBack}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex items-center gap-1.5 text-butter/70 hover:text-butter font-bold text-sm w-fit transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back</span>
+          </motion.button>
+        ) : <div />}
+      </div>
 
-      {/* Header */}
+      {/* Main Content Area */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-        className="text-center mb-12 flex-shrink-0"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="my-auto flex flex-col gap-3 sm:gap-4 w-full"
       >
-        <div className="w-16 h-16 bg-garnet/40 border border-bistre-mid/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-          <IndianRupee size={32} className="text-butter-mid" strokeWidth={1.5} />
+        {/* Icon & Title */}
+        <div className="text-center">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-garnet/40 border border-bistre-mid/30 rounded-2xl flex items-center justify-center mx-auto mb-2.5">
+            <IndianRupee className="w-6 h-6 sm:w-7 sm:h-7 text-butter-mid" strokeWidth={1.5} />
+          </div>
+          <h1 className="text-xl sm:text-2xl font-black text-butter leading-tight">
+            {existingSalary > 0
+              ? 'Update your monthly salary'
+              : 'What is your monthly salary?'}
+          </h1>
+          <p className="text-butter/45 font-medium mt-1 text-xs sm:text-sm">
+            {existingSalary > 0
+              ? `Currently: ₹${existingSalary.toLocaleString('en-IN')}`
+              : 'Stored only on your device — completely private.'}
+          </p>
         </div>
-        <h1 className="text-2xl font-black text-butter leading-tight">
-          {existingSalary > 0
-            ? 'Update your monthly salary'
-            : 'What is your monthly salary?'}
-        </h1>
-        <p className="text-butter/45 font-semibold mt-2 text-sm">
-          {existingSalary > 0
-            ? `Currently set to: ₹${existingSalary.toLocaleString('en-IN')}`
-            : 'Stored only on your device — completely private.'}
-        </p>
-      </motion.div>
 
-      {/* Input section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-        className="flex-1 flex flex-col gap-4"
-      >
-        {/* Amount input */}
-        <div className="relative">
+        {/* Input Box */}
+        <div className="relative mt-1">
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-black text-bistre-mid">₹</div>
           <input
-            type="number" inputMode="numeric" value={amount}
+            type="number"
+            inputMode="numeric"
+            value={amount}
             onChange={(e) => { setAmount(e.target.value); setError('') }}
             onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
             placeholder="25000"
-            className="w-full bg-white/10 border-2 border-bistre-mid/30 rounded-3xl pl-12 pr-6 py-5
-                       text-3xl font-black text-butter placeholder-butter/25
-                       focus:outline-none focus:border-bistre-mid transition-colors duration-150"
+            className="w-full bg-white/10 border-2 border-bistre-mid/30 rounded-2xl sm:rounded-3xl pl-11 pr-5 py-3.5 sm:py-4
+                       text-2xl sm:text-3xl font-black text-butter placeholder-butter/25
+                       focus:outline-none focus:border-bistre-mid transition-colors"
             autoFocus
           />
         </div>
 
-        {/* Preview */}
+        {/* Amount Preview */}
         {amount && !error && (
-          <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-            <span className="text-butter-mid font-black text-xl">{formatPreview(amount)} / month</span>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
+            <span className="text-butter-mid font-black text-base sm:text-lg">{formatPreview(amount)} / month</span>
           </motion.div>
         )}
 
-        {/* Error */}
+        {/* Error Notification */}
         {error && (
-          <motion.p initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-            className="text-indian-red font-bold text-sm text-center bg-indian-red/10 py-2 px-4 rounded-xl">
+          <motion.p
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-indian-red font-bold text-xs sm:text-sm text-center bg-indian-red/10 py-1.5 px-3 rounded-xl"
+          >
             {error}
           </motion.p>
         )}
 
-        {/* Quick picks */}
-        <div className="mt-2">
-          <p className="text-xs text-butter/35 font-semibold mb-2 text-center">Or pick a preset:</p>
-          <div className="grid grid-cols-3 gap-2">
+        {/* Preset Amounts */}
+        <div className="mt-1">
+          <p className="text-[11px] sm:text-xs text-butter/35 font-semibold mb-1.5 text-center">Quick select:</p>
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
             {[15000, 25000, 35000, 50000, 75000, 100000].map((amt) => (
-              <button key={amt}
+              <button
+                key={amt}
                 onClick={() => { setAmount(String(amt)); setError('') }}
-                className={`py-2.5 px-3 rounded-2xl border-2 text-sm font-bold transition-all duration-150 active:scale-95
+                className={`py-2 px-2 rounded-xl border text-xs sm:text-sm font-bold transition-all active:scale-95
                   ${amount === String(amt)
                     ? 'bg-bistre-gold text-white border-bistre-gold'
-                    : 'bg-white/8 border-bistre-mid/25 text-butter/70 hover:border-bistre-mid'}`}>
+                    : 'bg-white/5 border-bistre-mid/25 text-butter/70 hover:border-bistre-mid'}`}
+              >
                 ₹{(amt / 1000).toFixed(0)}k
               </button>
             ))}
           </div>
         </div>
+      </motion.div>
 
-        <div className="flex-1" />
-
-        {/* Submit */}
+      {/* Bottom Submit CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+        className="w-full flex-shrink-0 pt-2"
+      >
         <motion.button
-          onClick={handleSubmit} disabled={submitted}
+          onClick={handleSubmit}
+          disabled={submitted}
           whileTap={{ scale: 0.96 }}
-          className={`w-full py-5 rounded-3xl font-black text-xl shadow-card-lg
-                      flex items-center justify-center gap-3 transition-all duration-300
-                      ${submitted ? 'bg-finch text-white' : 'gradient-gold text-white'}`}>
+          className={`w-full py-3.5 sm:py-4 rounded-2xl sm:rounded-3xl font-black text-base sm:text-lg shadow-card-lg
+                      flex items-center justify-center gap-2.5 transition-all
+                      ${submitted ? 'bg-finch text-white' : 'gradient-gold text-white'}`}
+        >
           {submitted ? (
-            <><Check size={24} /><span>Done!</span></>
+            <><Check className="w-5 h-5" /><span>Saved!</span></>
           ) : (
             <span>Save Salary</span>
           )}
